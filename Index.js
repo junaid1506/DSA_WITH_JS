@@ -2,7 +2,7 @@
 // let a = "12";
 // let b = 13;
 // console.log(a + b); //concatenation
-// console.log(a - b); //subtraction
+// console.log(a - b); //type-coercion
 
 // Sum and print with message
 
