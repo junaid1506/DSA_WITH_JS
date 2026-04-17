@@ -45,21 +45,84 @@
 
 //Q4
 
-function isPalindrome(str) {
-  let reverse = "";
-  let result = false;
+// function isPalindrome(str) {
+//   let reverse = "";
+//   let result = false;
 
-  for (let i = str.length - 1; i >= 0; i--) {
-    reverse = reverse + str[i];
+//   for (let i = str.length - 1; i >= 0; i--) {
+//     reverse = reverse + str[i];
+//   }
+
+//   if (reverse === str) {
+//     result = true;
+//   }
+
+//   return result;
+// }
+
+// console.log(isPalindrome('mama'))
+
+// Q5
+
+// function removeDuplicates(arr) {
+//   let newArr = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     if (!newArr.includes(arr[i])) {
+//       newArr.push(arr[i]);
+//     }
+//   }
+//   return newArr;
+// }
+
+// console.log(removeDuplicates([1,2,2,3,4,4,5]))
+
+// Q6
+
+// function countVowels(str) {
+//   let result = 0;
+
+//   for (let i = 0; i < str.length; i++) {
+//     if ("aeiou".includes(str[i])) {
+//       result = result + 1;
+//     }
+//   }
+
+//   return result;
+// }
+
+// function countVowels2(str) {
+//   let result = 0;
+
+//   for (let i = 0; i < str.length; i++) {
+//     if (
+//       str[i] === "a" ||
+//       str[i] === "e" ||
+//       str[i] === "i" ||
+//       str[i] === "o" ||
+//       str[i] === "u"
+//     ) {
+//       result = result + 1;
+//     }
+//   }
+
+//   return result;
+// }
+
+// console.log(countVowels("javascript"));
+// console.log(countVowels2("javascript"));
+
+
+//Q7
+
+
+function twoSum(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+    
+    
+
+
+
+
+    
   }
-
-  if (reverse === str) {
-    result = true;
-  }
-
-  return result;
 }
-
-
-
-console.log(isPalindrome('mama'))

@@ -43,3 +43,7 @@
 
 let a = 9430;
 console.log(a % 10);
+
+//unary 
+// pre  => '++'  Phle laga ho to direct value bad jati hai 
+// post  => '++'  baad me laga ho to direct value nhi badti balki next call pe bdti hai 
