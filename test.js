@@ -128,9 +128,31 @@
 
 // Q8
 
-function secondLargest(arr) {
-  let result = 
-  for (let i = 0; i < arr.length; i++) {
+// function secondLargest(arr) {
+//   let largest = -Infinity;
+//   let secondLargest = -Infinity;
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] > largest) {
+//       secondLargest = largest;
+//       largest = arr[i];
+//     } else if (arr[i] > secondLargest && arr[i] !== largest) {
+//       secondLargest = arr[i];
+//     }
+//   }
+
+//   return secondLargest;
+// }
+
+// console.log(secondLargest([2, 4, 5, 3, 6, 763214]));
+
+// Q9
+
+function moveZeros(arr) {
+  let newArr = [];
+  for (let i = 0; i < array.length; i++) {
+      if(arr[i] )
     
   }
+
+
 }
