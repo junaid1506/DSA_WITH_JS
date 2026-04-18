@@ -48,6 +48,16 @@
 // pre  => '++'  Phle laga ho to direct value bad jati hai 
 // post  => '++'  baad me laga ho to direct value nhi badti balki next call pe bdti hai 
 
-let i = 11
-i = i++ + ++i
-console.log(i)
+// let i = 11
+// i = i++ + ++i
+// console.log(i)
+
+// const i = 11
+// console.log(i++) // you cant apply unarry opreator on contant 
+
+
+// 15++ ( its also a error)
+// let a = 10
+// let b = ++(++a) // here is a errror showing 
+// console.log(b)
+
