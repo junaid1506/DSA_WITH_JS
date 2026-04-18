@@ -147,12 +147,32 @@
 
 // Q9
 
-function moveZeros(arr) {
-  let newArr = [];
-  for (let i = 0; i < array.length; i++) {
-      if(arr[i] )
-    
+// function moveZeros(arr) {
+//   let arr2 = [];
+//   let arr3 = [];
+//   let newArr = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === 0) {
+//       arr3.push(arr[i]);
+//     } else {
+//       arr2.push(arr[i]);
+//     }
+//   }
+//   return [...arr2, ...arr3];
+// }
+
+// console.log(moveZeros([0, 1, 0, 3, 12]));
+
+// Q10
+
+function firstUnique(str) {
+  let newStr = [];
+  for (let i = 0; i < str.length; i++) {
+    if (!newStr.includes(str[i])) {
+      
+      return str[i];
+    }else if(newStr.includes(str[i])){
+      
+    }
   }
-
-
 }
