@@ -61,3 +61,15 @@
 // let b = ++(++a) // here is a errror showing 
 // console.log(b)
 
+
+console.log(Math.round(4.5)); // 5
+console.log(Math.ceil(4.1)); // 5
+console.log(Math.floor(4.9)); // 4
+console.log(Math.trunc(4.9)); // 4
+console.log(Math.pow(2, 3)); // 8
+console.log(Math.sqrt(16));
+console.log(Math.abs(-5)); // 5
+console.log(Math.max(3, 7)); // 7
+console.log(Math.min(3, 7)); // 3
+console.log(Math.random()); // 0 se 1 ke beech me koi bhi random number dega
+console.log(Math.tofixed(2)); // 0.00
