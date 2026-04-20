@@ -44,32 +44,42 @@
 // let a = 9430;
 // console.log(a % 10);
 
-//unary 
-// pre  => '++'  Phle laga ho to direct value bad jati hai 
-// post  => '++'  baad me laga ho to direct value nhi badti balki next call pe bdti hai 
+//unary
+// pre  => '++'  Phle laga ho to direct value bad jati hai
+// post  => '++'  baad me laga ho to direct value nhi badti balki next call pe bdti hai
 
 // let i = 11
 // i = i++ + ++i
 // console.log(i)
 
 // const i = 11
-// console.log(i++) // you cant apply unarry opreator on contant 
-
+// console.log(i++) // you cant apply unarry opreator on contant
 
 // 15++ ( its also a error)
 // let a = 10
-// let b = ++(++a) // here is a errror showing 
+// let b = ++(++a) // here is a errror showing
 // console.log(b)
 
+// console.log(Math.round(4.5)); // 5
+// console.log(Math.ceil(4.1)); // 5
+// console.log(Math.floor(4.9)); // 4
+// console.log(Math.trunc(4.9)); // 4
+// console.log(Math.pow(2, 3)); // 8
+// console.log(Math.sqrt(16));
+// console.log(Math.abs(-5)); // 5
+// console.log(Math.max(3, 7)); // 7
+// console.log(Math.min(3, 7)); // 3
+// console.log(Math.random()); // 0 se 1 ke beech me koi bhi random number dega
+// console.log(Math.trunc(Math.random() * 9000 + 1000));
 
-console.log(Math.round(4.5)); // 5
-console.log(Math.ceil(4.1)); // 5
-console.log(Math.floor(4.9)); // 4
-console.log(Math.trunc(4.9)); // 4
-console.log(Math.pow(2, 3)); // 8
-console.log(Math.sqrt(16));
-console.log(Math.abs(-5)); // 5
-console.log(Math.max(3, 7)); // 7
-console.log(Math.min(3, 7)); // 3
-console.log(Math.random()); // 0 se 1 ke beech me koi bhi random number dega
-console.log(Math.tofixed(2)); // 0.00
+// calculate are ad parimeter of rectangle
+
+// let a = 5;
+// let b = 7;
+
+// let areaOfReactangle = a * b;
+// let paremeterOfReactangle = 2 * (a + b);
+// console.log(areaOfReactangle);
+// console.log(paremeterOfReactangle);
+
+
