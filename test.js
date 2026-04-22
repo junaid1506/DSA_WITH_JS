@@ -167,13 +167,9 @@
 
 function firstUnique(str) {
   let newStr = [];
-  for (let i = 0; i < str.length; i++) {
-    if (!newStr.includes(str[i])) {
-      
-      return str[i];
-    }else if(newStr.includes(str[i])){
-      
-    }
+  for (let i = 0; i < str.length; i++) {  
+    
+
   }
 }
 
