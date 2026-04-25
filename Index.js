@@ -82,11 +82,24 @@
 // console.log(areaOfReactangle);
 // console.log(paremeterOfReactangle);
 
-// let age = Number(prompt("What is your age "));
-// console.log(age);
+let age = Number(prompt("What is your age "));
+console.log(age);
 
-// if (age >= 18) {
-//   console.log("You are eligible to vote");
-// } else {
-//   console.log("You are not eligible to vote");
-// }
+if (isNaN(age)) { 
+  console.log("Wrong input");
+}
+if (age >= 18) {
+  console.log("You are eligible to vote");
+} else {
+  console.log("You are not eligible to vote");
+}
+
+
+
+// Loops
+
+
+
+
+
+
