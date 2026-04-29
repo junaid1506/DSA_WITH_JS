@@ -85,7 +85,7 @@
 // let age = Number(prompt("What is your age "));
 // console.log(age);
 
-// if (isNaN(age)) { 
+// if (isNaN(age)) {
 //   console.log("Wrong input");
 // }
 // if (age >= 18) {
@@ -94,18 +94,8 @@
 //   console.log("You are not eligible to vote");
 // }
 
-
-
 // Loops
 
-
-
-
-
-
-
-
-
-
-
-
+for (let i = 200; i > 99; i--) {
+  console.log(i);
+}
