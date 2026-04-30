@@ -96,6 +96,52 @@
 
 // Loops
 
-for (let i = 200; i > 99; i--) {
-  console.log(i);
+// for (let i = 200; i > 99; i--) {
+//   console.log(i);
+// }
+
+// let end = Number(prompt("Sum of natural number"));
+// if (isNaN(end)) {
+//   console.log("invalid input");
+// } else if (end < 1) {
+//   console.log("Please enter a natural number");
+// } else {
+//   let num = 0;
+
+//   for (let i = 1; i <= end; i++) {
+//     num += i;
+//   }
+//   console.log(num);
+// }
+
+// let end = Number(prompt("factorial of natural number"));
+// if (isNaN(end)) {
+//   console.log("invalid input");
+// } else if (end < 1) {
+//   console.log("Please enter a natural number");
+// } else {
+//   let num = 1;
+
+//   for (let i = 1; i <= end; i++) {
+//     num *= i;
+//   }
+//   console.log(num);
+// }
+
+
+let pr = prompt("Enter the number")
+if(pr === null){
+  console.log("Cancelled")
+}
+else{
+     
+
+
+
+
+
+
+
+
+
 }
