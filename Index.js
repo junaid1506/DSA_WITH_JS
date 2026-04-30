@@ -128,6 +128,29 @@
 //   console.log(num);
 // }
 
+// let pr = prompt("Enter the number");
+// if (pr === null) {
+//   console.log("Cancelled");
+// } else {
+//   let num = Number(pr);
+//   if (isNaN(num)) {
+//     console.log("plaes enter the valid number");
+//   } else {
+//     if (num > 0) {
+//       let res = [];
+//       for (let i = 1; i <= num; i++) {
+//         if (num % i === 0) {
+//           res.push(i);
+//         }
+//       }
+//       console.log(res);
+//     } else {
+//       console.log("Number should be natural number ");
+//     }
+//   }
+// }
+
+
 let pr = prompt("Enter the number");
 if (pr === null) {
   console.log("Cancelled");
