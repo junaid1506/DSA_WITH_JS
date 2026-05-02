@@ -167,13 +167,44 @@
 
 // function firstUnique(str) {
 //   let newStr = [];
-//   for (let i = 0; i < str.length; i++) {  
-    
+//   for (let i = 0; i < str.length; i++) {
 
 //   }
 // }
 
+// function getPrimes(n) {
+//   if (typeof n !== "number") {
+//     return console.log("Please enter the valid number ");
+//   }
+//   if (n < 1) {
+//     return console.log("Please enter the the number who greater that 0 ");
+//   }
 
+//   let prime = [];
 
+//   for (let i = 2; i < n; i++) {
+//     if (n % i !== 0)  {
+//       prime.push(i);
+//     }
+//   }
+//   return console.log(prime);
+// }
 
+// getPrimes(10);
 
+//
+async function getUsers() {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await res.json();
+
+    console.log("Data:", data);
+    console.log("ye tb tk nhi chalega jb tk data nhi aa jata");
+  } catch (err) {
+    console.log("Error:", err);
+  }
+}
+
+getUsers();
+
+console.log("This will log before the data is fetched");

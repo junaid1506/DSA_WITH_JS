@@ -181,8 +181,10 @@
 // }
 
 
-let num = prompt("Kuch bhi de do (exit for close)");
+// let num = prompt("Kuch bhi de do (exit for close)");
 
-while (num !== "exit") {
-  num = prompt("Kuch bhi de do (exit for close)");
-}
+// while (num !== "exit") {
+//   num = prompt("Kuch bhi de do (exit for close)");
+// }
+
+
