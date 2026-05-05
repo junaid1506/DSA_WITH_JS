@@ -1,0 +1,2557 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>K.T.A. Academy – Knowledge Time with AUMIT</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --purple: #6b21d4;
+        --purple2: #9b4dff;
+        --blue: #1e3fbb;
+        --blue2: #4a7aff;
+        --pink: #ff1f8e;
+        --pink2: #ff6ec7;
+        --yellow: #ffd700;
+        --cyan: #00e5ff;
+        --bg: #08051a;
+        --card: rgba(255, 255, 255, 0.04);
+        --border: rgba(255, 255, 255, 0.09);
+        --gp: rgba(107, 33, 212, 0.6);
+        --gb: rgba(30, 63, 187, 0.6);
+        --gpink: rgba(255, 31, 142, 0.5);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        font-family: "Nunito", sans-serif;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      /* ── BG ── */
+      .mesh {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 10% 10%,
+            rgba(107, 33, 212, 0.28) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 70% 50% at 90% 80%,
+            rgba(30, 63, 187, 0.28) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 50% 50%,
+            rgba(255, 31, 142, 0.1) 0%,
+            transparent 70%
+          );
+        animation: meshpulse 8s ease-in-out infinite alternate;
+      }
+      @keyframes meshpulse {
+        from {
+          opacity: 0.8;
+          transform: scale(1);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+      }
+      .stars {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .star {
+        position: absolute;
+        border-radius: 50%;
+        animation: twinkle var(--d) ease-in-out infinite;
+        animation-delay: var(--dl);
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 200;
+        padding: 0 60px;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(8, 5, 26, 0.85);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid rgba(155, 77, 255, 0.2);
+        animation: navIn 0.8s ease both;
+      }
+      @keyframes navIn {
+        from {
+          transform: translateY(-80px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        z-index: 210;
+      }
+      .nav-gem {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--purple), var(--blue2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Baloo 2", cursive;
+        font-weight: 900;
+        font-size: 20px;
+        box-shadow: 0 0 24px var(--gp);
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .nav-gem::after {
+        content: "";
+        position: absolute;
+        inset: -100%;
+        background: linear-gradient(
+          135deg,
+          transparent 40%,
+          rgba(255, 255, 255, 0.25) 50%,
+          transparent 60%
+        );
+        animation: shimmer 3s ease-in-out infinite;
+      }
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) translateY(-100%);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%);
+        }
+      }
+      .nav-name {
+        font-family: "Baloo 2", cursive;
+        font-weight: 900;
+        font-size: 20px;
+        background: linear-gradient(90deg, #fff, #c4a8ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        white-space: nowrap;
+      }
+
+      /* Desktop links */
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        align-items: center;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        transition: color 0.25s;
+        position: relative;
+        padding-bottom: 4px;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--purple2), var(--pink));
+        transition: all 0.3s;
+        transform: translateX(-50%);
+      }
+      .nav-links a:hover {
+        color: #fff;
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      .nav-btn {
+        padding: 11px 26px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--purple), var(--pink));
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 24px var(--gpink);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        white-space: nowrap;
+      }
+      .nav-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px var(--gpink);
+      }
+
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 8px;
+        border: none;
+        background: transparent;
+        z-index: 210;
+      }
+      .hamburger span {
+        display: block;
+        width: 26px;
+        height: 2.5px;
+        border-radius: 2px;
+        background: #fff;
+        transition: all 0.35s ease;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: translateY(7.5px) rotate(45deg);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: translateY(-7.5px) rotate(-45deg);
+      }
+
+      /* Mobile drawer */
+      .mobile-menu {
+        position: fixed;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: rgba(8, 5, 26, 0.98);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid rgba(155, 77, 255, 0.2);
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.45s ease,
+          padding 0.45s ease;
+        z-index: 199;
+      }
+      .mobile-menu.open {
+        max-height: 420px;
+        padding: 20px 0 32px;
+      }
+      .mobile-menu a {
+        display: block;
+        padding: 14px 32px;
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 17px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .mobile-menu a:hover {
+        background: rgba(155, 77, 255, 0.1);
+        color: #fff;
+      }
+      .mobile-menu .mob-enroll {
+        display: block;
+        margin: 20px 28px 0;
+        padding: 16px;
+        border-radius: 50px;
+        text-align: center;
+        background: linear-gradient(135deg, var(--purple), var(--pink));
+        color: #fff;
+        font-weight: 800;
+        font-size: 16px;
+        text-decoration: none;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 100px 24px 80px;
+        overflow: hidden;
+      }
+      .hero-glow {
+        position: absolute;
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(107, 33, 212, 0.25) 0%,
+          transparent 70%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        animation: glowpulse 4s ease-in-out infinite alternate;
+      }
+      @keyframes glowpulse {
+        from {
+          transform: translate(-50%, -50%) scale(0.9);
+        }
+        to {
+          transform: translate(-50%, -50%) scale(1.15);
+        }
+      }
+      .hero-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 24px;
+        border-radius: 50px;
+        background: rgba(255, 31, 142, 0.12);
+        border: 1px solid rgba(255, 31, 142, 0.45);
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--pink);
+        letter-spacing: 1.2px;
+        margin-bottom: 28px;
+        animation: fadeUp 0.9s 0.2s both;
+      }
+      .hero-chip .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--pink);
+        animation: blink 1.4s infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.2;
+          transform: scale(0.6);
+        }
+      }
+      .hero h1 {
+        font-family: "Baloo 2", cursive;
+        font-weight: 900;
+        font-size: clamp(60px, 12vw, 140px);
+        line-height: 0.95;
+        letter-spacing: -2px;
+        margin-bottom: 10px;
+        animation: fadeUp 0.9s 0.4s both;
+      }
+      .h1-kta {
+        display: block;
+        background: linear-gradient(
+          135deg,
+          #fff 0%,
+          #d4aaff 40%,
+          #89c4ff 70%,
+          var(--cyan) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 50px rgba(155, 77, 255, 0.4));
+      }
+      .h1-academy {
+        display: block;
+        font-size: clamp(28px, 5.5vw, 64px);
+        letter-spacing: 4px;
+        background: linear-gradient(90deg, var(--pink), var(--yellow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-tagline {
+        font-size: clamp(16px, 2.2vw, 24px);
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 18px 0 8px;
+        animation: fadeUp 0.9s 0.6s both;
+      }
+      .hero-tagline em {
+        color: var(--yellow);
+        font-style: normal;
+        font-weight: 900;
+        text-shadow: 0 0 24px rgba(255, 215, 0, 0.5);
+      }
+      .hero-full {
+        font-size: clamp(11px, 1.4vw, 15px);
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        color: rgba(255, 255, 255, 0.28);
+        text-transform: uppercase;
+        margin-bottom: 40px;
+        animation: fadeUp 0.9s 0.7s both;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        animation: fadeUp 0.9s 0.85s both;
+      }
+      .btn-big {
+        padding: 18px 48px;
+        border-radius: 50px;
+        font-size: 17px;
+        font-weight: 800;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .btn-big.primary {
+        background: linear-gradient(
+          135deg,
+          var(--purple),
+          var(--blue2),
+          var(--purple2)
+        );
+        background-size: 200%;
+        color: #fff;
+        box-shadow: 0 8px 40px var(--gp);
+        animation: gradshift 3s linear infinite;
+      }
+      @keyframes gradshift {
+        0% {
+          background-position: 0%;
+        }
+        100% {
+          background-position: 200%;
+        }
+      }
+      .btn-big.primary:hover {
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: 0 18px 56px var(--gp);
+      }
+      .btn-big.ghost {
+        background: transparent;
+        color: #fff;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+      }
+      .btn-big.ghost:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-4px);
+      }
+      .hero-stats {
+        display: flex;
+        gap: 0;
+        margin-top: 64px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(14px);
+        overflow: hidden;
+        flex-wrap: wrap;
+        animation: fadeUp 0.9s 1.1s both;
+      }
+      .stat-item {
+        padding: 28px 44px;
+        text-align: center;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        flex: 1;
+        min-width: 120px;
+      }
+      .stat-item:last-child {
+        border-right: none;
+      }
+      .stat-big {
+        font-family: "Baloo 2", cursive;
+        font-size: 44px;
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--yellow), var(--pink));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .stat-sm {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        margin-top: 6px;
+        text-transform: uppercase;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── REVEAL ── */
+      .r {
+        opacity: 0;
+        transform: translateY(50px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+      .r.on {
+        opacity: 1;
+        transform: none;
+      }
+      .d1 {
+        transition-delay: 0.1s;
+      }
+      .d2 {
+        transition-delay: 0.2s;
+      }
+      .d3 {
+        transition-delay: 0.3s;
+      }
+      .d4 {
+        transition-delay: 0.4s;
+      }
+      .d5 {
+        transition-delay: 0.5s;
+      }
+
+      /* ── SECTIONS ── */
+      section {
+        position: relative;
+        z-index: 1;
+        padding: 100px 48px;
+      }
+      .container {
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+      .sec-tag {
+        display: inline-block;
+        padding: 6px 20px;
+        border-radius: 50px;
+        background: rgba(255, 31, 142, 0.12);
+        border: 1px solid rgba(255, 31, 142, 0.35);
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--pink);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .sec-title {
+        font-family: "Baloo 2", cursive;
+        font-size: clamp(34px, 5.5vw, 64px);
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 18px;
+      }
+      .sec-title.grad {
+        background: linear-gradient(135deg, #fff 0%, #c4a8ff 50%, #89c4ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .sec-desc {
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 600;
+        line-height: 1.7;
+        max-width: 660px;
+      }
+      .sec-head {
+        text-align: center;
+        margin-bottom: 72px;
+      }
+      .sec-head .sec-desc {
+        margin: 0 auto;
+      }
+
+      /* ── QUOTE ── */
+      .quote-strip {
+        position: relative;
+        z-index: 1;
+        padding: 80px 48px;
+        background: linear-gradient(
+          135deg,
+          rgba(107, 33, 212, 0.15),
+          rgba(30, 63, 187, 0.15)
+        );
+        border-top: 1px solid rgba(155, 77, 255, 0.15);
+        border-bottom: 1px solid rgba(155, 77, 255, 0.15);
+        text-align: center;
+        overflow: hidden;
+      }
+      .quote-strip::before {
+        content: '"';
+        position: absolute;
+        font-size: 500px;
+        font-family: "Baloo 2", cursive;
+        font-weight: 900;
+        color: rgba(155, 77, 255, 0.04);
+        top: -100px;
+        left: 20px;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .quote-text {
+        font-family: "Baloo 2", cursive;
+        font-size: clamp(22px, 4.5vw, 50px);
+        font-weight: 800;
+        line-height: 1.4;
+        background: linear-gradient(90deg, #fff, #c4a8ff, #89c4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        z-index: 1;
+      }
+      .quote-author {
+        margin-top: 16px;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.3);
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* ── CLASSES ── */
+      .classes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+      .c-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: 44px 36px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.35s,
+          box-shadow 0.35s,
+          border-color 0.35s;
+      }
+      .c-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.35s;
+        border-radius: 28px;
+      }
+      .c-card.pu::before {
+        background: radial-gradient(
+          circle at 0% 0%,
+          rgba(107, 33, 212, 0.2),
+          transparent 70%
+        );
+      }
+      .c-card.bl::before {
+        background: radial-gradient(
+          circle at 0% 0%,
+          rgba(74, 122, 255, 0.2),
+          transparent 70%
+        );
+      }
+      .c-card.pk::before {
+        background: radial-gradient(
+          circle at 0% 0%,
+          rgba(255, 31, 142, 0.18),
+          transparent 70%
+        );
+      }
+      .c-card:hover {
+        transform: translateY(-12px) scale(1.02);
+      }
+      .c-card.pu:hover {
+        box-shadow: 0 36px 80px rgba(107, 33, 212, 0.35);
+        border-color: rgba(155, 77, 255, 0.5);
+      }
+      .c-card.bl:hover {
+        box-shadow: 0 36px 80px rgba(74, 122, 255, 0.3);
+        border-color: rgba(74, 122, 255, 0.5);
+      }
+      .c-card.pk:hover {
+        box-shadow: 0 36px 80px rgba(255, 31, 142, 0.3);
+        border-color: rgba(255, 31, 142, 0.5);
+      }
+      .c-card:hover::before {
+        opacity: 1;
+      }
+      .c-bar {
+        height: 5px;
+        border-radius: 5px 5px 0 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+      .pu .c-bar {
+        background: linear-gradient(90deg, var(--purple), var(--purple2));
+      }
+      .bl .c-bar {
+        background: linear-gradient(90deg, var(--blue), var(--blue2));
+      }
+      .pk .c-bar {
+        background: linear-gradient(90deg, var(--pink), var(--pink2));
+      }
+      .c-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        margin-bottom: 24px;
+      }
+      .pu .c-icon {
+        background: rgba(107, 33, 212, 0.25);
+        box-shadow: 0 0 32px rgba(107, 33, 212, 0.4);
+      }
+      .bl .c-icon {
+        background: rgba(74, 122, 255, 0.2);
+        box-shadow: 0 0 32px rgba(74, 122, 255, 0.35);
+      }
+      .pk .c-icon {
+        background: rgba(255, 31, 142, 0.18);
+        box-shadow: 0 0 32px rgba(255, 31, 142, 0.35);
+      }
+      .c-level {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .pu .c-level {
+        color: var(--purple2);
+      }
+      .bl .c-level {
+        color: var(--blue2);
+      }
+      .pk .c-level {
+        color: var(--pink2);
+      }
+      .c-title {
+        font-family: "Baloo 2", cursive;
+        font-size: 27px;
+        font-weight: 900;
+        margin-bottom: 22px;
+        line-height: 1.2;
+      }
+      .subj-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .subj-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.82);
+      }
+      .subj-dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+      .pu .subj-dot {
+        background: rgba(107, 33, 212, 0.3);
+        color: var(--purple2);
+      }
+      .bl .subj-dot {
+        background: rgba(74, 122, 255, 0.25);
+        color: var(--blue2);
+      }
+      .pk .subj-dot {
+        background: rgba(255, 31, 142, 0.2);
+        color: var(--pink2);
+      }
+
+      /* ── ACHIEVEMENT COUNTER STRIP ── */
+      .counter-strip {
+        position: relative;
+        z-index: 1;
+        padding: 60px 48px;
+        background: linear-gradient(
+          90deg,
+          rgba(107, 33, 212, 0.18),
+          rgba(30, 63, 187, 0.18),
+          rgba(107, 33, 212, 0.18)
+        );
+        border-top: 1px solid rgba(155, 77, 255, 0.15);
+        border-bottom: 1px solid rgba(155, 77, 255, 0.15);
+        overflow: hidden;
+      }
+      .counter-strip::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 80px,
+          rgba(255, 255, 255, 0.015) 80px,
+          rgba(255, 255, 255, 0.015) 81px
+        );
+      }
+      .counter-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        position: relative;
+      }
+      .count-box {
+        text-align: center;
+        padding: 20px;
+        border-right: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .count-box:last-child {
+        border-right: none;
+      }
+      .count-num {
+        font-family: "Baloo 2", cursive;
+        font-size: 52px;
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--cyan), var(--purple2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .count-unit {
+        font-family: "Baloo 2", cursive;
+        font-size: 22px;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--pink), var(--yellow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .count-label {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.45);
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-top: 8px;
+        text-transform: uppercase;
+      }
+
+      /* ── WHY ── */
+      .why-section {
+        background: linear-gradient(
+          180deg,
+          transparent,
+          rgba(107, 33, 212, 0.06),
+          transparent
+        );
+      }
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+      }
+      .why-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        padding: 44px 28px;
+        text-align: center;
+        transition:
+          transform 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .why-card:hover {
+        transform: translateY(-12px);
+        border-color: rgba(155, 77, 255, 0.4);
+        box-shadow: 0 28px 70px rgba(107, 33, 212, 0.25);
+      }
+      .why-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--purple2), var(--pink));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s;
+      }
+      .why-card:hover::after {
+        transform: scaleX(1);
+      }
+      .why-emoji {
+        font-size: 52px;
+        margin-bottom: 20px;
+        display: block;
+        filter: drop-shadow(0 0 14px rgba(155, 77, 255, 0.4));
+      }
+      .why-name {
+        font-family: "Baloo 2", cursive;
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      .why-desc {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.65;
+        font-weight: 600;
+      }
+
+      /* ── NIOS ── */
+      .nios-wrap {
+        background: linear-gradient(
+          135deg,
+          rgba(107, 33, 212, 0.25),
+          rgba(30, 63, 187, 0.25)
+        );
+        border: 1px solid rgba(155, 77, 255, 0.3);
+        border-radius: 32px;
+        padding: 64px 56px;
+        display: flex;
+        align-items: center;
+        gap: 48px;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: hidden;
+      }
+      .nios-wrap::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 31, 142, 0.1),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .nios-big-icon {
+        font-size: 100px;
+        flex-shrink: 0;
+        line-height: 1;
+        filter: drop-shadow(0 0 36px rgba(255, 215, 0, 0.4));
+      }
+      .nios-body {
+        flex: 1;
+        min-width: 260px;
+      }
+      .nios-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        background: linear-gradient(135deg, var(--pink), var(--purple2));
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 18px var(--gpink);
+      }
+      .nios-h {
+        font-family: "Baloo 2", cursive;
+        font-size: clamp(26px, 4vw, 40px);
+        font-weight: 900;
+        margin-bottom: 14px;
+      }
+      .nios-p {
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.75;
+        font-weight: 600;
+        margin-bottom: 14px;
+      }
+      .nios-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 4px;
+      }
+      .nios-chip {
+        padding: 6px 16px;
+        border-radius: 50px;
+        border: 1px solid rgba(155, 77, 255, 0.3);
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      /* ── TUITION ── */
+      .tuition-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .tuit-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        padding: 44px 36px;
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+        position: relative;
+      }
+      .tuit-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(74, 122, 255, 0.4);
+      }
+      .tuit-num {
+        position: absolute;
+        top: 26px;
+        right: 32px;
+        font-family: "Baloo 2", cursive;
+        font-size: 68px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.04);
+        line-height: 1;
+      }
+      .tuit-icon-wrap {
+        width: 68px;
+        height: 68px;
+        border-radius: 18px;
+        margin-bottom: 24px;
+        background: linear-gradient(
+          135deg,
+          rgba(74, 122, 255, 0.2),
+          rgba(107, 33, 212, 0.2)
+        );
+        border: 1px solid rgba(74, 122, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+      }
+      .tuit-title {
+        font-family: "Baloo 2", cursive;
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 12px;
+      }
+      .tuit-desc {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.52);
+        line-height: 1.75;
+        font-weight: 600;
+      }
+
+      /* ── TESTIMONIALS ── */
+      .test-section {
+        background: linear-gradient(
+          180deg,
+          transparent,
+          rgba(74, 122, 255, 0.06),
+          transparent
+        );
+      }
+      .test-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .test-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 36px 32px;
+        position: relative;
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+      }
+      .test-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(155, 77, 255, 0.3);
+      }
+      .test-quote-mark {
+        font-family: "Baloo 2", cursive;
+        font-size: 56px;
+        font-weight: 900;
+        line-height: 0.8;
+        background: linear-gradient(135deg, var(--purple2), var(--pink));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: block;
+        margin-bottom: 14px;
+      }
+      .test-text {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.7;
+        font-weight: 600;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+      .test-stars {
+        color: var(--yellow);
+        font-size: 16px;
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+      }
+      .test-name {
+        font-family: "Baloo 2", cursive;
+        font-size: 18px;
+        font-weight: 800;
+      }
+      .test-class {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      /* ── TEACHER ── */
+      .teacher-section {
+        background: linear-gradient(
+          135deg,
+          rgba(107, 33, 212, 0.08),
+          rgba(30, 63, 187, 0.08)
+        );
+      }
+      .teacher-wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: var(--card);
+        border: 1px solid rgba(155, 77, 255, 0.2);
+        border-radius: 36px;
+        padding: 72px 64px;
+        display: flex;
+        gap: 64px;
+        align-items: center;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: hidden;
+      }
+      .teacher-wrap::before {
+        content: "";
+        position: absolute;
+        top: -120px;
+        right: -120px;
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(107, 33, 212, 0.15),
+          transparent 70%
+        );
+      }
+      .teacher-ring {
+        width: 190px;
+        height: 190px;
+        border-radius: 34px;
+        background: linear-gradient(
+          135deg,
+          var(--purple),
+          var(--blue2),
+          var(--pink)
+        );
+        padding: 4px;
+        flex-shrink: 0;
+        animation: ringcol 6s ease-in-out infinite;
+      }
+      @keyframes ringcol {
+        0% {
+          box-shadow: 0 0 50px var(--gp);
+        }
+        33% {
+          box-shadow: 0 0 50px var(--gb);
+        }
+        66% {
+          box-shadow: 0 0 50px var(--gpink);
+        }
+        100% {
+          box-shadow: 0 0 50px var(--gp);
+        }
+      }
+      .teacher-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #1a0a3a, #0a1a3a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 86px;
+      }
+      .teacher-info {
+        flex: 1;
+        min-width: 260px;
+      }
+      .t-name {
+        font-family: "Baloo 2", cursive;
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 900;
+        margin-bottom: 10px;
+        line-height: 1.1;
+      }
+      .t-cred {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 22px;
+        border-radius: 50px;
+        margin-bottom: 20px;
+        background: linear-gradient(
+          135deg,
+          rgba(107, 33, 212, 0.4),
+          rgba(74, 122, 255, 0.4)
+        );
+        border: 1px solid rgba(155, 77, 255, 0.3);
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .t-bio {
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.8;
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+      .t-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 50px;
+        background: rgba(255, 215, 0, 0.1);
+        border: 1.5px solid rgba(255, 215, 0, 0.35);
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--yellow);
+        box-shadow: 0 0 28px rgba(255, 215, 0, 0.12);
+      }
+      .t-points {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .t-point {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .t-point-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--purple2);
+        flex-shrink: 0;
+        box-shadow: 0 0 8px var(--purple2);
+      }
+
+      /* ── FAQ ── */
+      .faq-section {
+        background: linear-gradient(
+          180deg,
+          transparent,
+          rgba(107, 33, 212, 0.05),
+          transparent
+        );
+      }
+      .faq-list {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .faq-item {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .faq-q {
+        width: 100%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 22px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        text-align: left;
+        color: #fff;
+      }
+      .faq-q-text {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.4;
+        flex: 1;
+      }
+      .faq-arrow {
+        font-size: 20px;
+        flex-shrink: 0;
+        transition: transform 0.35s;
+        color: var(--purple2);
+      }
+      .faq-item.open .faq-arrow {
+        transform: rotate(180deg);
+      }
+      .faq-a {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.4s ease,
+          padding 0.4s ease;
+        padding: 0 28px;
+      }
+      .faq-item.open .faq-a {
+        max-height: 200px;
+        padding: 0 28px 22px;
+      }
+      .faq-a p {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.55);
+        line-height: 1.75;
+        font-weight: 600;
+      }
+
+      /* ── CONTACT ── */
+      .contact-section {
+        background: linear-gradient(
+          180deg,
+          transparent,
+          rgba(107, 33, 212, 0.1)
+        );
+        text-align: center;
+      }
+      .phone-row {
+        display: flex;
+        gap: 28px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 56px 0 40px;
+      }
+      .ph-card {
+        background: linear-gradient(
+          135deg,
+          rgba(107, 33, 212, 0.3),
+          rgba(30, 63, 187, 0.3)
+        );
+        border: 1.5px solid rgba(155, 77, 255, 0.4);
+        border-radius: 26px;
+        padding: 44px 56px;
+        text-decoration: none;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .ph-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(107, 33, 212, 0.2),
+          rgba(255, 31, 142, 0.1)
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .ph-card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 28px 70px var(--gp);
+      }
+      .ph-card:hover::before {
+        opacity: 1;
+      }
+      .ph-icon {
+        font-size: 38px;
+        margin-bottom: 12px;
+        display: block;
+        position: relative;
+      }
+      .ph-num {
+        font-family: "Baloo 2", cursive;
+        font-size: 36px;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 1px;
+        position: relative;
+      }
+      .ph-label {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 700;
+        margin-top: 6px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        position: relative;
+      }
+      .info-row {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .i-pill {
+        padding: 14px 28px;
+        border-radius: 50px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        font-size: 15px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.65);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .i-pill:hover {
+        border-color: rgba(155, 77, 255, 0.5);
+        background: rgba(107, 33, 212, 0.1);
+      }
+
+      /* ── CTA BANNER ── */
+      .cta-banner {
+        position: relative;
+        z-index: 1;
+        padding: 80px 48px;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          rgba(107, 33, 212, 0.3),
+          rgba(255, 31, 142, 0.15),
+          rgba(30, 63, 187, 0.3)
+        );
+        border-top: 1px solid rgba(155, 77, 255, 0.2);
+        border-bottom: 1px solid rgba(155, 77, 255, 0.2);
+        overflow: hidden;
+      }
+      .cta-banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(155, 77, 255, 0.12),
+          transparent 70%
+        );
+        animation: glowpulse 4s ease-in-out infinite alternate;
+      }
+      .cta-h {
+        font-family: "Baloo 2", cursive;
+        font-size: clamp(28px, 5vw, 52px);
+        font-weight: 900;
+        margin-bottom: 16px;
+        position: relative;
+      }
+      .cta-p {
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 600;
+        max-width: 560px;
+        margin: 0 auto 36px;
+        line-height: 1.6;
+        position: relative;
+      }
+      .cta-btns {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        position: relative;
+        z-index: 1;
+        padding: 48px 48px 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .footer-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+      .footer-brand-col {
+        max-width: 320px;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .footer-gem {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--purple), var(--blue2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Baloo 2", cursive;
+        font-weight: 900;
+        font-size: 16px;
+        box-shadow: 0 0 18px var(--gp);
+      }
+      .footer-name {
+        font-family: "Baloo 2", cursive;
+        font-weight: 800;
+        font-size: 19px;
+      }
+      .footer-tagline {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 600;
+        line-height: 1.6;
+      }
+      .footer-col h4 {
+        font-family: "Baloo 2", cursive;
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 16px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .footer-col a,
+      .footer-col p {
+        display: block;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 600;
+        text-decoration: none;
+        margin-bottom: 10px;
+        transition: color 0.25s;
+      }
+      .footer-col a:hover {
+        color: var(--purple2);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-copy {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.28);
+        font-weight: 600;
+      }
+      .footer-copy span {
+        color: var(--pink);
+      }
+      .footer-phone-sm {
+        font-family: "Baloo 2", cursive;
+        font-size: 16px;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* ── SCROLL TOP ── */
+      .stb {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        z-index: 300;
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--purple), var(--pink));
+        color: #fff;
+        font-size: 22px;
+        box-shadow: 0 4px 28px var(--gp);
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .stb.on {
+        opacity: 1;
+        transform: none;
+      }
+      .stb:hover {
+        transform: translateY(-4px) scale(1.1);
+      }
+
+      /* ══════════════════════════════════
+   RESPONSIVE / MOBILE
+══════════════════════════════════ */
+      @media (max-width: 1024px) {
+        .classes-grid {
+          grid-template-columns: 1fr;
+        }
+        .why-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .test-grid {
+          grid-template-columns: 1fr;
+        }
+        .counter-inner {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .count-box:nth-child(2) {
+          border-right: none;
+        }
+        .count-box:nth-child(3) {
+          border-right: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .count-box {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+      }
+      @media (max-width: 900px) {
+        nav {
+          padding: 0 20px;
+        }
+        .nav-links,
+        .nav-btn {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        section {
+          padding: 80px 20px;
+        }
+        .counter-strip {
+          padding: 48px 20px;
+        }
+        .quote-strip {
+          padding: 60px 20px;
+        }
+        .nios-wrap {
+          padding: 36px 24px;
+          gap: 28px;
+        }
+        .nios-big-icon {
+          font-size: 70px;
+        }
+        .teacher-wrap {
+          padding: 40px 28px;
+          gap: 36px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .footer-top {
+          flex-direction: column;
+          gap: 32px;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+        .cta-banner {
+          padding: 60px 20px;
+        }
+        footer {
+          padding: 40px 20px 28px;
+        }
+        .ph-card {
+          padding: 36px 40px;
+        }
+        .ph-num {
+          font-size: 30px;
+        }
+      }
+      @media (max-width: 640px) {
+        .hero {
+          padding: 90px 20px 64px;
+        }
+        .hero-stats {
+          flex-wrap: wrap;
+          border-radius: 18px;
+        }
+        .stat-item {
+          padding: 20px 20px;
+          min-width: 50%;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .stat-item:nth-child(2) {
+          border-right: none;
+        }
+        .stat-item:nth-child(3) {
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .stat-item:nth-child(3),
+        .stat-item:nth-child(4) {
+          border-bottom: none;
+        }
+        .stat-big {
+          font-size: 36px;
+        }
+        .tuition-grid {
+          grid-template-columns: 1fr;
+        }
+        .why-grid {
+          grid-template-columns: 1fr;
+        }
+        .counter-inner {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .counter-strip {
+          padding: 40px 20px;
+        }
+        .phone-row {
+          flex-direction: column;
+          align-items: center;
+        }
+        .ph-card {
+          width: 100%;
+          max-width: 340px;
+          padding: 36px;
+        }
+        .btn-big {
+          padding: 16px 36px;
+          font-size: 15px;
+        }
+        .info-row {
+          gap: 12px;
+        }
+        .i-pill {
+          font-size: 13px;
+          padding: 12px 20px;
+        }
+        .nios-wrap {
+          flex-direction: column;
+          text-align: left;
+        }
+        .nios-big-icon {
+          font-size: 60px;
+        }
+        .teacher-ring {
+          width: 150px;
+          height: 150px;
+          border-radius: 26px;
+        }
+        .teacher-inner {
+          border-radius: 22px;
+          font-size: 68px;
+        }
+        .faq-q-text {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mesh"></div>
+    <div class="stars" id="stars"></div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-brand">
+        <div class="nav-gem">KTA</div>
+        <span class="nav-name">K.T.A. Academy</span>
+      </div>
+      <div class="nav-links">
+        <a href="#classes">Classes</a>
+        <a href="#why">Why Us</a>
+        <a href="#nios">NIOS</a>
+        <a href="#teacher">Teacher</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#contact" class="nav-btn">Enroll Now ✦</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#classes" class="mob-link">📚 Classes</a>
+      <a href="#why" class="mob-link">🎯 Why Us</a>
+      <a href="#nios" class="mob-link">🎓 NIOS / Patrachar</a>
+      <a href="#teacher" class="mob-link">👨‍🏫 Meet the Teacher</a>
+      <a href="#testimonials" class="mob-link">⭐ Reviews</a>
+      <a href="#faq" class="mob-link">❓ FAQ</a>
+      <a href="#contact" class="mob-link">📞 Contact</a>
+      <a href="#contact" class="mob-enroll">Enroll Now ✦</a>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-chip">
+        <span class="dot"></span>Admissions Open 2025–26
+      </div>
+      <h1>
+        <span class="h1-kta">K.T.A.</span>
+        <span class="h1-academy">ACADEMY</span>
+      </h1>
+      <p class="hero-tagline">Knowledge Time with <em>AUMIT</em></p>
+      <p class="hero-full">
+        Nursery &nbsp;·&nbsp; Class I–VIII &nbsp;·&nbsp; IX–X &nbsp;·&nbsp;
+        XI–XII &nbsp;·&nbsp; NIOS
+      </p>
+      <div class="hero-btns">
+        <a href="#classes" class="btn-big primary">Explore Classes →</a>
+        <a href="#contact" class="btn-big ghost">Contact Us</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-big" data-target="11">0</div>
+          <div class="stat-sm">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-big">XII</div>
+          <div class="stat-sm">Classes Covered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-big">All</div>
+          <div class="stat-sm">Subjects Available</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-big">🏠</div>
+          <div class="stat-sm">Home Tuition</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE -->
+    <div class="quote-strip">
+      <p class="quote-text r">
+        "Education is the movement from darkness to light"
+      </p>
+      <p class="quote-author r d1">
+        — The guiding philosophy of K.T.A. Academy
+      </p>
+    </div>
+
+    <!-- CLASSES -->
+    <section id="classes">
+      <div class="container">
+        <div class="sec-head r">
+          <span class="sec-tag">Curriculum</span>
+          <h2 class="sec-title grad">Classes We Offer</h2>
+          <p class="sec-desc">
+            Comprehensive coaching from nursery through Class XII — every
+            subject, every level, every child.
+          </p>
+        </div>
+        <div class="classes-grid">
+          <div class="c-card pk r d1">
+            <div class="c-bar"></div>
+            <div class="c-icon">🎒</div>
+            <div class="c-level">Foundation</div>
+            <div class="c-title">Nursery – Class VIII</div>
+            <ul class="subj-list">
+              <li><span class="subj-dot">✓</span>All Subjects Covered</li>
+              <li><span class="subj-dot">✓</span>Strong Conceptual Base</li>
+              <li><span class="subj-dot">✓</span>Activity-Based Learning</li>
+              <li><span class="subj-dot">✓</span>Regular Assessments</li>
+              <li><span class="subj-dot">✓</span>Hindi &amp; English Medium</li>
+            </ul>
+          </div>
+          <div class="c-card pu r d2">
+            <div class="c-bar"></div>
+            <div class="c-icon">📐</div>
+            <div class="c-level">Class IX &amp; X</div>
+            <div class="c-title">Secondary Level</div>
+            <ul class="subj-list">
+              <li><span class="subj-dot">★</span>Maths</li>
+              <li><span class="subj-dot">★</span>Science</li>
+              <li><span class="subj-dot">★</span>English</li>
+              <li><span class="subj-dot">★</span>Social Studies (S.ST.)</li>
+              <li><span class="subj-dot">★</span>Hindi</li>
+            </ul>
+          </div>
+          <div class="c-card bl r d3">
+            <div class="c-bar"></div>
+            <div class="c-icon">📚</div>
+            <div class="c-level">Class XI &amp; XII</div>
+            <div class="c-title">Senior Secondary</div>
+            <ul class="subj-list">
+              <li><span class="subj-dot">★</span>Economics</li>
+              <li><span class="subj-dot">★</span>Political Science</li>
+              <li><span class="subj-dot">★</span>English</li>
+              <li><span class="subj-dot">★</span>History</li>
+              <li><span class="subj-dot">★</span>Sociology</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENT COUNTER STRIP -->
+    <div class="counter-strip">
+      <div class="counter-inner">
+        <div class="count-box r d1">
+          <div>
+            <span class="count-num" data-c="11">0</span
+            ><span class="count-unit">+</span>
+          </div>
+          <div class="count-label">Years of Experience</div>
+        </div>
+        <div class="count-box r d2">
+          <div>
+            <span class="count-num" data-c="500">0</span
+            ><span class="count-unit">+</span>
+          </div>
+          <div class="count-label">Students Taught</div>
+        </div>
+        <div class="count-box r d3">
+          <div>
+            <span class="count-num" data-c="12">0</span
+            ><span class="count-unit"></span>
+          </div>
+          <div class="count-label">Grade Levels</div>
+        </div>
+        <div class="count-box r d4">
+          <div>
+            <span class="count-num" data-c="100">0</span
+            ><span class="count-unit">%</span>
+          </div>
+          <div class="count-label">Dedication</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHY US -->
+    <section id="why" class="why-section">
+      <div class="container">
+        <div class="sec-head r">
+          <span class="sec-tag">Our Edge</span>
+          <h2 class="sec-title grad">Why Choose K.T.A.?</h2>
+          <p class="sec-desc">
+            We don't just teach — we mentor, motivate, and build confident
+            learners for life.
+          </p>
+        </div>
+        <div class="why-grid">
+          <div class="why-card r d1">
+            <span class="why-emoji">🎯</span>
+            <div class="why-name">Expert Guidance</div>
+            <div class="why-desc">
+              M.A. &amp; B.Ed. qualified teacher with 11+ years of proven
+              classroom mastery and real results
+            </div>
+          </div>
+          <div class="why-card r d2">
+            <span class="why-emoji">📖</span>
+            <div class="why-name">All Subjects</div>
+            <div class="why-desc">
+              Complete subject coverage from nursery all the way to Class XII —
+              no subject left behind
+            </div>
+          </div>
+          <div class="why-card r d3">
+            <span class="why-emoji">🏠</span>
+            <div class="why-name">Home Tuition</div>
+            <div class="why-desc">
+              Personalised 1-on-1 sessions at your home — comfort, focus, and
+              zero commute stress
+            </div>
+          </div>
+          <div class="why-card r d4">
+            <span class="why-emoji">🎓</span>
+            <div class="why-name">NIOS / Patrachar</div>
+            <div class="why-desc">
+              Specialised classes for open school &amp; Patrachar students
+              preparing for 10th &amp; 12th exams
+            </div>
+          </div>
+          <div class="why-card r d1">
+            <span class="why-emoji">⚡</span>
+            <div class="why-name">Doubt Resolution</div>
+            <div class="why-desc">
+              Every doubt addressed immediately — no student leaves a session
+              with an unanswered question
+            </div>
+          </div>
+          <div class="why-card r d2">
+            <span class="why-emoji">📊</span>
+            <div class="why-name">Regular Tests</div>
+            <div class="why-desc">
+              Periodic assessments and mock tests to keep students exam-ready
+              and track progress
+            </div>
+          </div>
+          <div class="why-card r d3">
+            <span class="why-emoji">🧠</span>
+            <div class="why-name">Smart Strategies</div>
+            <div class="why-desc">
+              Exam-focused tips, shortcuts, and answer-writing techniques that
+              actually boost marks
+            </div>
+          </div>
+          <div class="why-card r d4">
+            <span class="why-emoji">💬</span>
+            <div class="why-name">Parent Updates</div>
+            <div class="why-desc">
+              Regular feedback and progress updates shared with parents so
+              everyone stays informed
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NIOS -->
+    <section id="nios">
+      <div class="container">
+        <div class="nios-wrap r">
+          <div class="nios-big-icon">🎓</div>
+          <div class="nios-body">
+            <div class="nios-badge">Special Programme</div>
+            <div class="nios-h">N.I.O.S. · Open School · Patrachar</div>
+            <div class="nios-p">
+              Special classes for 10th &amp; 12th — all subjects. Dedicated
+              coaching for students enrolled under NIOS, Open School, and
+              Patrachar programmes with flexible schedules and focused exam
+              preparation.
+            </div>
+            <div class="nios-tags">
+              <span class="nios-chip">📅 Flexible Schedule</span>
+              <span class="nios-chip">📝 All Subjects</span>
+              <span class="nios-chip">🎯 Exam Focused</span>
+              <span class="nios-chip">🏠 Home Tuition Option</span>
+            </div>
+          </div>
+          <a
+            href="#contact"
+            class="btn-big primary"
+            style="flex-shrink: 0; white-space: nowrap"
+            >Enquire Now →</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- HOME TUITION -->
+    <section>
+      <div class="container">
+        <div class="sec-head r">
+          <span class="sec-tag">Convenience</span>
+          <h2 class="sec-title grad">Home Tuition Available</h2>
+          <p class="sec-desc">
+            Can't visit the centre? We bring expert teaching right to your
+            doorstep — personalised, flexible, and just as effective.
+          </p>
+        </div>
+        <div class="tuition-grid">
+          <div class="tuit-card r d1">
+            <div class="tuit-num">01</div>
+            <div class="tuit-icon-wrap">📍</div>
+            <div class="tuit-title">At Your Doorstep</div>
+            <div class="tuit-desc">
+              Our teacher travels to your home ensuring a comfortable, focused
+              environment perfectly tailored to your child's unique learning
+              needs.
+            </div>
+          </div>
+          <div class="tuit-card r d2">
+            <div class="tuit-num">02</div>
+            <div class="tuit-icon-wrap">⏰</div>
+            <div class="tuit-title">Flexible Timings</div>
+            <div class="tuit-desc">
+              Morning, afternoon, or evening — we adapt completely to your
+              schedule so education fits your life, not the other way around.
+            </div>
+          </div>
+          <div class="tuit-card r d3">
+            <div class="tuit-num">03</div>
+            <div class="tuit-icon-wrap">👤</div>
+            <div class="tuit-title">1-on-1 Attention</div>
+            <div class="tuit-desc">
+              Undivided focus means instant doubt resolution, a customised
+              learning pace, and real, measurable progress every single session.
+            </div>
+          </div>
+          <div class="tuit-card r d4">
+            <div class="tuit-num">04</div>
+            <div class="tuit-icon-wrap">📈</div>
+            <div class="tuit-title">Proven Results</div>
+            <div class="tuit-desc">
+              Students consistently improve grades and develop lasting subject
+              confidence under AUMIT Sir's expert, patient, and caring guidance.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="test-section">
+      <div class="container">
+        <div class="sec-head r">
+          <span class="sec-tag">Student Reviews</span>
+          <h2 class="sec-title grad">What Students Say</h2>
+          <p class="sec-desc">
+            Real words from real students and parents who have experienced the
+            KTA difference.
+          </p>
+        </div>
+        <div class="test-grid">
+          <div class="test-card r d1">
+            <span class="test-quote-mark">"</span>
+            <div class="test-text">
+              AUMIT Sir explains every topic with so much patience and clarity.
+              My Maths marks went from 55 to 88 in just one semester. Best
+              decision we made!
+            </div>
+            <div class="test-stars">★★★★★</div>
+            <div class="test-name">Rahul Sharma</div>
+            <div class="test-class">Class X Student</div>
+          </div>
+          <div class="test-card r d2">
+            <span class="test-quote-mark">"</span>
+            <div class="test-text">
+              As a parent, I'm very impressed. Regular updates, flexible
+              timings, and my daughter genuinely looks forward to her sessions.
+              Highly recommend!
+            </div>
+            <div class="test-stars">★★★★★</div>
+            <div class="test-name">Mrs. Priya Gupta</div>
+            <div class="test-class">Parent of Class VIII Student</div>
+          </div>
+          <div class="test-card r d3">
+            <span class="test-quote-mark">"</span>
+            <div class="test-text">
+              The NIOS coaching here is exceptional. Sir understands the exact
+              exam pattern and helped me clear all my subjects on the first
+              attempt!
+            </div>
+            <div class="test-stars">★★★★★</div>
+            <div class="test-name">Ankit Verma</div>
+            <div class="test-class">NIOS Class XII Student</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEACHER -->
+    <section id="teacher" class="teacher-section">
+      <div class="container">
+        <div class="sec-head r">
+          <span class="sec-tag">Your Mentor</span>
+          <h2 class="sec-title grad">Meet the Teacher</h2>
+        </div>
+        <div class="teacher-wrap r">
+          <div class="teacher-ring">
+            <div class="teacher-inner">👨‍🏫</div>
+          </div>
+          <div class="teacher-info">
+            <div class="t-name">AUMIT SINGH  Sir</div>
+            <div class="t-cred">🎓 M.A. &amp; B.Ed. Qualified</div>
+            <div class="t-bio">
+              A devoted educator with a passion for making even the most complex
+              subjects simple, clear, and enjoyable. AUMIT Sir brings warmth,
+              patience, and deep academic insight to every session — whether in
+              the classroom or at your home. His unique teaching style blends
+              strong conceptual clarity with practical exam strategies that
+              deliver real, lasting results.
+            </div>
+            <div class="t-badge">
+              ⭐ More than 11 Years of Teaching Experience
+            </div>
+            <div class="t-points">
+              <div class="t-point">
+                <span class="t-point-dot"></span>Specialises in Humanities &amp;
+                Social Sciences for Classes XI–XII
+              </div>
+              <div class="t-point">
+                <span class="t-point-dot"></span>Expert in NIOS, Open School
+                &amp; Patrachar curriculum
+              </div>
+              <div class="t-point">
+                <span class="t-point-dot"></span>Strong foundation teaching for
+                Nursery to Class VIII
+              </div>
+              <div class="t-point">
+                <span class="t-point-dot"></span>Available for home tuition
+                across Delhi NCR
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <div class="sec-head r">
+          <span class="sec-tag">FAQ</span>
+          <h2 class="sec-title grad">Frequently Asked Questions</h2>
+          <p class="sec-desc">
+            Everything you need to know before enrolling at K.T.A. Academy.
+          </p>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item r d1">
+            <button class="faq-q">
+              <span class="faq-q-text"
+                >What classes and subjects does K.T.A. Academy cover?</span
+              >
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>
+                We cover all subjects from Nursery to Class VIII. For Class IX–X
+                we teach Maths, Science, English, Social Studies (S.ST.), and
+                Hindi. For Class XI–XII we offer Economics, Political Science,
+                English, History, and Sociology.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item r d2">
+            <button class="faq-q">
+              <span class="faq-q-text"
+                >Is home tuition available? What areas are covered?</span
+              >
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>
+                Yes! Home tuition is available. AUMIT Sir personally visits
+                students at their homes. Please call us at 9650848453 or
+                9717155207 to confirm availability in your area.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item r d3">
+            <button class="faq-q">
+              <span class="faq-q-text"
+                >Do you offer coaching for NIOS and Patrachar students?</span
+              >
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>
+                Absolutely. We have special classes for 10th and 12th NIOS and
+                Patrachar (Open School) students covering all subjects. The
+                schedule is flexible and tailored to each student's exam
+                timeline.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item r d4">
+            <button class="faq-q">
+              <span class="faq-q-text"
+                >What are AUMIT Sir's qualifications?</span
+              >
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>
+                AUMIT SINGH  Sir holds an M.A. (Master of Arts) and B.Ed.
+                (Bachelor of Education) degree and has more than 11 years of
+                teaching experience across multiple subjects and levels.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item r d5">
+            <button class="faq-q">
+              <span class="faq-q-text"
+                >How do I enroll or get more information?</span
+              >
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              <p>
+                Simply call or WhatsApp us on 9650848453 or 9717155207. We are
+                available Monday to Saturday, 7AM to 9PM. We'll be happy to
+                discuss your child's requirements and suggest the best plan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner">
+      <h2 class="cta-h r">Ready to Start Learning?</h2>
+      <p class="cta-p r d1">
+        Take the first step towards academic excellence. Call us today and let's
+        build a brighter future for your child together.
+      </p>
+      <div class="cta-btns r d2">
+        <a href="tel:9650848453" class="btn-big primary">📞 Call Now</a>
+        <a href="#contact" class="btn-big ghost">View Contact Details</a>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="r">
+          <span class="sec-tag">Get In Touch</span>
+          <h2 class="sec-title grad" style="margin-top: 10px">
+            For Any Information,<br />Contact Us
+          </h2>
+          <p class="sec-desc" style="margin: 0 auto">
+            Happy to answer any questions about admissions, subjects, or home
+            tuition.
+          </p>
+        </div>
+        <div class="phone-row">
+          <a href="tel:9650848453" class="ph-card r d1">
+            <span class="ph-icon">📞</span>
+            <div class="ph-num">9650848453</div>
+            <div class="ph-label">Primary Number</div>
+          </a>
+          <a href="tel:9717155207" class="ph-card r d2">
+            <span class="ph-icon">📱</span>
+            <div class="ph-num">9717155207</div>
+            <div class="ph-label">Alternate Number</div>
+          </a>
+        </div>
+        <div class="info-row r d3">
+          <div class="i-pill">🕐 Mon – Sat &nbsp;·&nbsp; 7AM – 9PM</div>
+          <div class="i-pill">📚 Nursery to Class XII</div>
+          <div class="i-pill">🏠 Home Tuition Available</div>
+          <div class="i-pill">🎓 NIOS / Patrachar</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <div class="footer-gem">KTA</div>
+            <span class="footer-name">K.T.A. Academy</span>
+          </div>
+          <p class="footer-tagline">
+            Knowledge Time with AUMIT — dedicated coaching for Nursery to Class
+            XII students with expert guidance and home tuition options.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="#classes">Classes Offered</a>
+          <a href="#why">Why Choose Us</a>
+          <a href="#nios">NIOS / Patrachar</a>
+          <a href="#teacher">About the Teacher</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Programmes</h4>
+          <p>Nursery – Class VIII (All Subjects)</p>
+          <p>Class IX &amp; X</p>
+          <p>Class XI &amp; XII</p>
+          <p>NIOS / Open School</p>
+          <p>Home Tuition</p>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:9650848453">📞 9650848453</a>
+          <a href="tel:9717155207">📱 9717155207</a>
+          <p>🕐 Mon–Sat: 7AM – 9PM</p>
+          <p>📍 Delhi NCR</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © 2024 <span>K.T.A. Academy</span> · Knowledge Time with AUMIT · All
+          Rights Reserved
+        </div>
+        <div class="footer-phone">📞 9650848453 &nbsp;|&nbsp; 9717155207</div>
+      </div>
+    </footer>
+
+    <button
+      class="stb"
+      id="stb"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      ↑
+    </button>
+
+    <script>
+      // ── Stars
+      const sc = document.getElementById("stars");
+      const cols = [
+        "#9B4DFF",
+        "#4A7AFF",
+        "#FF1F8E",
+        "#FFD700",
+        "#00E5FF",
+        "#fff",
+      ];
+      for (let i = 0; i < 90; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        const sz = Math.random() * 3 + 1 + "px";
+        s.style.cssText = `left:${Math.random() * 100}vw;top:${Math.random() * 100}vh;
+    width:${sz};height:${sz};
+    background:${cols[Math.floor(Math.random() * cols.length)]};
+    --d:${(3 + Math.random() * 6).toFixed(1)}s;--dl:${(Math.random() * 8).toFixed(1)}s;`;
+        sc.appendChild(s);
+      }
+
+      // ── Hamburger
+      const ham = document.getElementById("hamburger");
+      const mob = document.getElementById("mobileMenu");
+      ham.addEventListener("click", () => {
+        ham.classList.toggle("open");
+        mob.classList.toggle("open");
+      });
+      // Close menu on link click
+      mob.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          ham.classList.remove("open");
+          mob.classList.remove("open");
+        }),
+      );
+
+      // ── Scroll reveal
+      const els = document.querySelectorAll(".r");
+      const obs = new IntersectionObserver(
+        (e) => {
+          e.forEach((x) => {
+            if (x.isIntersecting) {
+              x.target.classList.add("on");
+              obs.unobserve(x.target);
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+      els.forEach((el) => obs.observe(el));
+
+      // ── Scroll top
+      const stb = document.getElementById("stb");
+      window.addEventListener("scroll", () =>
+        stb.classList.toggle("on", scrollY > 500),
+      );
+
+      // ── Count up
+      function countUp(el, target, suffix = "") {
+        let v = 0;
+        const step = Math.max(1, Math.ceil(target / 60));
+        const t = setInterval(() => {
+          v = Math.min(v + step, target);
+          el.textContent = v + suffix;
+          if (v >= target) clearInterval(t);
+        }, 30);
+      }
+      // Hero stats
+      new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target
+                .querySelectorAll("[data-target]")
+                .forEach((el) => countUp(el, parseInt(el.dataset.target), "+"));
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      ).observe(document.querySelector(".hero-stats"));
+      // Counter strip
+      const counterObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.querySelectorAll("[data-c]").forEach((el) => {
+                const suf = el.nextElementSibling?.textContent || "";
+                countUp(el, parseInt(el.dataset.c));
+              });
+              counterObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
+      document.querySelector(".counter-inner") &&
+        counterObs.observe(document.querySelector(".counter-inner"));
+
+      // ── FAQ accordion
+      document.querySelectorAll(".faq-q").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".faq-item");
+          const isOpen = item.classList.contains("open");
+          document
+            .querySelectorAll(".faq-item")
+            .forEach((i) => i.classList.remove("open"));
+          if (!isOpen) item.classList.add("open");
+        });
+      });
+    </script>
+  </body>
+</html>

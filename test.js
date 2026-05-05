@@ -208,3 +208,4 @@ async function getUsers() {
 getUsers();
 
 console.log("This will log before the data is fetched");
+
