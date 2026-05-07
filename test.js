@@ -193,19 +193,45 @@
 // getPrimes(10);
 
 //
-async function getUsers() {
-  try {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users");
-    const data = await res.json();
+// async function getUsers() {
+//   try {
+//     const res = await fetch("https://jsonplaceholder.typicode.com/users");
+//     const data = await res.json();
 
-    console.log("Data:", data);
-    console.log("ye tb tk nhi chalega jb tk data nhi aa jata");
-  } catch (err) {
-    console.log("Error:", err);
+//     console.log("Data:", data);
+//     console.log("ye tb tk nhi chalega jb tk data nhi aa jata");
+//   } catch (err) {
+//     console.log("Error:", err);
+//   }
+// }
+
+// getUsers();
+
+// console.log("This will log before the data is fetched");
+
+// function arrayDiff(a, b) {
+//   let res = [];
+//   for (i = 0; i < a.length; i++) {
+//     if (!b.includes(a[i])) {
+//       res.push(a[i]);
+//     }
+//   }
+
+//   return res;
+// }
+
+// console.log(arrayDiff([1, 2, 2, 3], [2]));
+
+function filter_list(l) {
+  let res = [];
+
+  for (let i = 0; i < l.length; i++) {
+    if (typeof l[i] === "number") {
+      res.push(l[i]);
+    }
   }
+
+  return res;
 }
 
-getUsers();
-
-console.log("This will log before the data is fetched");
-
+console.log(filter_list([1, 2, "a", "b"]));
