@@ -222,16 +222,20 @@
 
 // console.log(arrayDiff([1, 2, 2, 3], [2]));
 
-function filter_list(l) {
-  let res = [];
+// function filter_list(l) {
+//   let res = [];
 
-  for (let i = 0; i < l.length; i++) {
-    if (typeof l[i] === "number") {
-      res.push(l[i]);
-    }
-  }
+//   for (let i = 0; i < l.length; i++) {
+//     if (typeof l[i] === "number") {
+//       res.push(l[i]);
+//     }
+//   }
 
-  return res;
-}
+//   return res;
+// }
 
-console.log(filter_list([1, 2, "a", "b"]));
+// console.log(filter_list([1, 2, "a", "b"]));
+
+let a = 2;
+a = "abc";
+console.log(a);
