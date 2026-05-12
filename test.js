@@ -236,6 +236,8 @@
 
 // console.log(filter_list([1, 2, "a", "b"]));
 
-let a = 2;
-a = "abc";
-console.log(a);
+let num = Number(prompt("Enter number"));
+if (isNaN(num)) {
+  console.log("Cancelled");
+}
+console.log(num);

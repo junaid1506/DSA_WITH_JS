@@ -180,12 +180,41 @@
 //   i++;
 // }
 
-
 // let num = prompt("Kuch bhi de do (exit for close)");
 
 // while (num !== "exit") {
 //   num = prompt("Kuch bhi de do (exit for close)");
 // }
 
+// do while
+// var i = 1;
+// do {
+//   console.log("This will execute at least once" + i);
+//   i++;
+// } while (i <= 10);
 
+let numToGuess = Math.floor(Math.random() * 10 + 1);
 
+let userInput = Number(prompt("Guess the number from 1 - 10"));
+
+while (isNaN(userInput) || userInput < 1 || userInput > 10) {
+  userInput = Number(
+    prompt("Invalid input! Please enter a number from 1 - 10"),
+  );
+}
+
+while (userInput !== numToGuess) {
+  if (userInput > numToGuess) {
+    userInput = Number(prompt("Too High, try again"));
+  } else {
+    userInput = Number(prompt("Too Low, try again"));
+  }
+
+  while (isNaN(userInput) || userInput < 1 || userInput > 10) {
+    userInput = Number(
+      prompt("Invalid input! Please enter a number from 1 - 10"),
+    );
+  }
+}
+
+alert("Good!! Correct");
