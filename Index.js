@@ -263,3 +263,39 @@
 //   }
 //   console.log(arr.join(" "));
 // }
+
+let ammount = 10000;
+let userInput = -3;
+
+// 1. Check Balance
+// 2. Deposit
+// 3. Withdraw
+// 4. Exit
+
+while (userInput !== 4) {
+  userInput = Number(
+    prompt(
+      "Choice one Option  1. Check Balance 2. Deposit 3. Withdraw  4. Exit ",
+    ),
+  );
+  console.log(userInput);
+  if (
+    userInput !== 1 &&
+    userInput !== 2 &&
+    userInput !== 3 &&
+    userInput !== 4
+  ) {
+    alert("Please Enter the following option");
+    continue;
+  }
+  if (userInput === 1) {
+    alert("Your current amount is ₹" + ammount);
+  } else if (userInput === 2) {
+    let deposite = Number(prompt("Enter the amout you want to add"));
+    if (deposite < 1) {
+      alert("Please enter amount more than ₹1 ");
+    }
+    ammount = ammount + deposite;
+    alert("Now your current ammount is" + ammount);
+  }
+}
