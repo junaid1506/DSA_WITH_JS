@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RetroBank ATM</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: #0a0a12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Share Tech Mono", monospace;
+        background-image:
+          radial-gradient(ellipse at 20% 50%, #0f3460 0%, transparent 60%),
+          radial-gradient(ellipse at 80% 50%, #001a0a 0%, transparent 60%);
+      }
+
+      .atm-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+      }
+
+      .atm-body {
+        width: 460px;
+        background: #1a1a2e;
+        border-radius: 18px 18px 24px 24px;
+        border: 3px solid #0f3460;
+        box-shadow:
+          0 0 0 1px #16213e,
+          0 0 60px #00ff4111,
+          0 8px 60px #000c;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* ── HEADER ── */
+      .atm-header {
+        background: #0f3460;
+        padding: 12px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid #00ff41;
+      }
+
+      .bank-name {
+        font-family: "VT323", monospace;
+        font-size: 24px;
+        color: #00ff41;
+        letter-spacing: 3px;
+        text-shadow: 0 0 10px #00ff41;
+      }
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #00ff41;
+        box-shadow: 0 0 10px #00ff41;
+        animation: blink 1.4s ease-in-out infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+      }
+
+      /* ── SCREEN ── */
+      .screen-outer {
+        margin: 18px 22px 12px;
+        background: #000;
+        border-radius: 8px;
+        border: 3px solid #0f3460;
+        box-shadow:
+          0 0 0 2px #00ff4122,
+          inset 0 0 40px #001a00;
+        position: relative;
+        overflow: hidden;
+        min-height: 230px;
+      }
+
+      .scanlines {
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.18) 2px,
+          rgba(0, 0, 0, 0.18) 4px
+        );
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      .crt-flicker {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 255, 65, 0.02);
+        pointer-events: none;
+        z-index: 11;
+        animation: flicker 5s infinite;
+      }
+
+      @keyframes flicker {
+        0%,
+        98%,
+        100% {
+          opacity: 1;
+        }
+        99% {
+          opacity: 0.65;
+        }
+      }
+
+      .screen-content {
+        padding: 18px 22px;
+        min-height: 230px;
+        position: relative;
+        z-index: 5;
+        animation: screenIn 0.3s ease;
+      }
+
+      @keyframes screenIn {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .screen-title {
+        font-family: "VT323", monospace;
+        font-size: 28px;
+        color: #00ff41;
+        text-shadow: 0 0 12px #00ff41;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #00ff4144;
+        padding-bottom: 8px;
+      }
+
+      .screen-line {
+        font-family: "Share Tech Mono", monospace;
+        font-size: 13px;
+        color: #00cc33;
+        margin: 6px 0;
+        text-shadow: 0 0 5px #00ff4166;
+        line-height: 1.5;
+        min-height: 20px;
+      }
+
+      .screen-line.highlight {
+        color: #00ff41;
+        text-shadow: 0 0 14px #00ff41;
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+
+      .screen-line.error {
+        color: #ff3b3b;
+        text-shadow: 0 0 10px #ff0000;
+      }
+
+      .screen-line.success {
+        color: #00ff99;
+        text-shadow: 0 0 12px #00ff99;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 9px;
+        height: 15px;
+        background: #00ff41;
+        animation: cur 0.8s step-end infinite;
+        vertical-align: middle;
+        margin-left: 3px;
+        box-shadow: 0 0 6px #00ff41;
+      }
+
+      @keyframes cur {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* ── MENU ── */
+      .menu-options {
+        margin-top: 14px;
+      }
+
+      .menu-opt {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        margin: 6px 0;
+        border: 1px solid #00ff4133;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.15s;
+        color: #00cc33;
+        font-size: 13px;
+        background: transparent;
+        font-family: "Share Tech Mono", monospace;
+        text-align: left;
+        width: 100%;
+      }
+
+      .menu-opt:hover {
+        background: #00ff4122;
+        border-color: #00ff41;
+        color: #00ff41;
+        text-shadow: 0 0 8px #00ff41;
+        transform: translateX(4px);
+      }
+
+      .menu-opt:active {
+        transform: translateX(4px) scale(0.98);
+      }
+
+      .menu-opt.danger {
+        border-color: #ff3b3b44;
+        color: #ff5555;
+        text-shadow: 0 0 5px #ff000055;
+      }
+
+      .menu-opt.danger:hover {
+        background: #ff000022;
+        border-color: #ff3b3b;
+        color: #ff5555;
+        text-shadow: 0 0 10px #ff0000;
+      }
+
+      .key-badge {
+        background: #0f3460;
+        border: 1px solid #00ff4155;
+        border-radius: 3px;
+        padding: 1px 6px;
+        font-size: 11px;
+        color: #00ff41;
+        min-width: 24px;
+        text-align: center;
+      }
+
+      /* ── CARD SLOT ── */
+      .card-slot {
+        margin: 0 22px 14px;
+        background: #0a0a18;
+        border: 1px solid #0f3460;
+        border-radius: 5px;
+        padding: 8px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .slot-bar {
+        flex: 1;
+        height: 7px;
+        background: #000;
+        border-radius: 3px;
+        border: 1px solid #00ff4133;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .slot-glow {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, #00ff4166, transparent);
+        animation: slide 3s ease-in-out infinite;
+      }
+
+      @keyframes slide {
+        0% {
+          left: -60%;
+        }
+        100% {
+          left: 110%;
+        }
+      }
+
+      .slot-label {
+        font-size: 10px;
+        color: #00ff4166;
+        letter-spacing: 2px;
+        font-family: "Share Tech Mono", monospace;
+      }
+
+      /* ── KEYPAD / INPUT ── */
+      .keypad-section {
+        margin: 0 22px 14px;
+      }
+
+      .input-area {
+        display: flex;
+        align-items: center;
+        background: #000;
+        border: 1.5px solid #00ff4166;
+        border-radius: 5px;
+        padding: 8px 14px;
+        margin-bottom: 10px;
+        gap: 8px;
+      }
+
+      .input-label {
+        color: #00ff4188;
+        font-size: 14px;
+        white-space: nowrap;
+        font-family: "Share Tech Mono", monospace;
+      }
+
+      .input-field {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #00ff41;
+        font-family: "Share Tech Mono", monospace;
+        font-size: 16px;
+        caret-color: #00ff41;
+        text-shadow: 0 0 6px #00ff41;
+      }
+
+      .input-field::placeholder {
+        color: #00ff4133;
+      }
+
+      .input-field::-webkit-outer-spin-button,
+      .input-field::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+      .input-field[type="number"] {
+        -moz-appearance: textfield;
+      }
+
+      .btn-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .atm-btn {
+        background: #0f3460;
+        border: 1.5px solid #00ff4155;
+        border-radius: 6px;
+        color: #00ff41;
+        font-family: "Share Tech Mono", monospace;
+        font-size: 13px;
+        padding: 10px;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: all 0.15s;
+        text-shadow: 0 0 6px #00ff4188;
+      }
+
+      .atm-btn:hover {
+        background: #00ff4122;
+        border-color: #00ff41;
+        text-shadow: 0 0 12px #00ff41;
+        box-shadow: 0 0 10px #00ff4122;
+      }
+
+      .atm-btn:active {
+        transform: scale(0.97);
+      }
+
+      .atm-btn.danger {
+        border-color: #ff3b3b55;
+        color: #ff5555;
+        text-shadow: 0 0 6px #ff000088;
+      }
+
+      .atm-btn.danger:hover {
+        background: #ff000022;
+        border-color: #ff3b3b;
+        text-shadow: 0 0 10px #ff0000;
+      }
+
+      .back-btn {
+        width: 100%;
+      }
+
+      /* ── TRANSACTION HISTORY ── */
+      .tx-history {
+        max-height: 90px;
+        overflow-y: auto;
+        margin-top: 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #00ff4133 #000;
+      }
+
+      .tx-history::-webkit-scrollbar {
+        width: 4px;
+      }
+      .tx-history::-webkit-scrollbar-track {
+        background: #000;
+      }
+      .tx-history::-webkit-scrollbar-thumb {
+        background: #00ff4133;
+        border-radius: 2px;
+      }
+
+      .tx-item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #00ff4188;
+        padding: 3px 0;
+        border-bottom: 1px solid #00ff4111;
+        font-family: "Share Tech Mono", monospace;
+      }
+
+      /* ── RECEIPT ── */
+      .receipt-strip {
+        margin: 0 22px 16px;
+        border-top: 2px dashed #00ff4133;
+        padding-top: 10px;
+        display: none;
+        animation: slideDown 0.4s ease;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .receipt-strip.show {
+        display: block;
+      }
+
+      .receipt-title {
+        font-size: 10px;
+        color: #00ff4155;
+        letter-spacing: 3px;
+        margin-bottom: 6px;
+        font-family: "Share Tech Mono", monospace;
+      }
+
+      .receipt-line {
+        font-size: 11px;
+        color: #00ff4177;
+        line-height: 1.9;
+        letter-spacing: 1px;
+        font-family: "Share Tech Mono", monospace;
+      }
+
+      /* ── BOOT OVERLAY ── */
+      .boot-overlay {
+        position: absolute;
+        inset: 0;
+        background: #000;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+        padding: 20px;
+      }
+
+      .boot-line {
+        font-family: "Share Tech Mono", monospace;
+        font-size: 12px;
+        color: #00ff41;
+        opacity: 0;
+        text-shadow: 0 0 6px #00ff41;
+        animation: fadeIn 0.4s forwards;
+        align-self: flex-start;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .boot-bar {
+        width: 100%;
+        height: 4px;
+        background: #001a00;
+        border-radius: 2px;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+
+      .boot-progress {
+        height: 100%;
+        background: #00ff41;
+        box-shadow: 0 0 8px #00ff41;
+        border-radius: 2px;
+        width: 0%;
+        animation: loadBar 2s ease forwards;
+        animation-delay: 0.5s;
+      }
+
+      @keyframes loadBar {
+        to {
+          width: 100%;
+        }
+      }
+
+      /* ── FOOTER ── */
+      .atm-footer {
+        background: #0f3460;
+        padding: 8px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #00ff4133;
+      }
+
+      .footer-text {
+        font-size: 10px;
+        color: #00ff4155;
+        letter-spacing: 2px;
+        font-family: "Share Tech Mono", monospace;
+      }
+
+      /* ── UTILITY ── */
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="atm-wrap">
+      <div class="atm-body">
+        <!-- HEADER -->
+        <div class="atm-header">
+          <span class="bank-name">◆ RETROBANK ATM ◆</span>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span
+              style="
+                font-size: 10px;
+                color: #00ff4188;
+                letter-spacing: 1px;
+                font-family: &quot;Share Tech Mono&quot;, monospace;
+              "
+              >ONLINE</span
+            >
+            <div class="status-dot"></div>
+          </div>
+        </div>
+
+        <!-- SCREEN -->
+        <div class="screen-outer">
+          <div class="scanlines"></div>
+          <div class="crt-flicker"></div>
+
+          <div class="screen-content" id="screen">
+            <!-- BOOT -->
+            <div class="boot-overlay" id="bootOverlay">
+              <div class="boot-line" style="animation-delay: 0.1s">
+                RETROBANK OS v2.4.1
+              </div>
+              <div class="boot-line" style="animation-delay: 0.7s">
+                INITIALIZING HARDWARE...
+              </div>
+              <div class="boot-line" style="animation-delay: 1.2s">
+                LOADING SECURE VAULT...
+              </div>
+              <div class="boot-line" style="animation-delay: 1.7s">
+                ESTABLISHING CONNECTION...
+              </div>
+              <div class="boot-line" style="animation-delay: 2s">
+                SYSTEM READY ■
+              </div>
+              <div class="boot-bar">
+                <div class="boot-progress"></div>
+              </div>
+            </div>
+
+            <!-- MAIN MENU -->
+            <div id="mainScreen" class="hidden">
+              <div class="screen-title">MAIN MENU</div>
+              <div class="screen-line">WELCOME, VALUED CUSTOMER</div>
+              <div class="screen-line">
+                SELECT AN OPTION <span class="cursor"></span>
+              </div>
+              <div class="menu-options">
+                <button class="menu-opt" onclick="doAction(1)">
+                  <span class="key-badge">[1]</span> CHECK BALANCE
+                </button>
+                <button class="menu-opt" onclick="doAction(2)">
+                  <span class="key-badge">[2]</span> DEPOSIT FUNDS
+                </button>
+                <button class="menu-opt" onclick="doAction(3)">
+                  <span class="key-badge">[3]</span> WITHDRAW FUNDS
+                </button>
+                <button class="menu-opt danger" onclick="doAction(4)">
+                  <span class="key-badge">[4]</span> EXIT / EJECT CARD
+                </button>
+              </div>
+            </div>
+
+            <!-- BALANCE SCREEN -->
+            <div id="balanceScreen" class="hidden">
+              <div class="screen-title">BALANCE INQUIRY</div>
+              <div class="screen-line">ACCOUNT: ****-****-4821</div>
+              <div class="screen-line">DATE: <span id="balDate"></span></div>
+              <div class="screen-line" style="margin-top: 12px">
+                AVAILABLE BALANCE:
+              </div>
+              <div class="screen-line highlight" id="balAmt"></div>
+              <div class="tx-history" id="txList"></div>
+              <div
+                class="screen-line"
+                style="margin-top: 12px; color: #00ff4166; font-size: 11px"
+              >
+                PRESS [BACK] TO RETURN
+              </div>
+            </div>
+
+            <!-- DEPOSIT SCREEN -->
+            <div id="depositScreen" class="hidden">
+              <div class="screen-title">DEPOSIT FUNDS</div>
+              <div class="screen-line">
+                CURRENT BALANCE:
+                <span
+                  id="depCurBal"
+                  style="color: #00ff41; text-shadow: 0 0 8px #00ff41"
+                ></span>
+              </div>
+              <div
+                class="screen-line"
+                style="margin-top: 14px; color: #00ff4188"
+              >
+                ENTER DEPOSIT AMOUNT (₹):
+              </div>
+              <div
+                class="screen-line"
+                style="font-size: 11px; color: #00ff4155; margin-top: 6px"
+              >
+                MINIMUM DEPOSIT: ₹1.00
+              </div>
+            </div>
+
+            <!-- WITHDRAW SCREEN -->
+            <div id="withdrawScreen" class="hidden">
+              <div class="screen-title">WITHDRAW FUNDS</div>
+              <div class="screen-line">
+                CURRENT BALANCE:
+                <span
+                  id="wdCurBal"
+                  style="color: #00ff41; text-shadow: 0 0 8px #00ff41"
+                ></span>
+              </div>
+              <div
+                class="screen-line"
+                style="margin-top: 14px; color: #00ff4188"
+              >
+                ENTER WITHDRAWAL AMOUNT (₹):
+              </div>
+              <div
+                class="screen-line"
+                style="font-size: 11px; color: #00ff4155; margin-top: 6px"
+              >
+                MINIMUM WITHDRAWAL: ₹1.00
+              </div>
+            </div>
+
+            <!-- MESSAGE SCREEN -->
+            <div id="msgScreen" class="hidden">
+              <div class="screen-title" id="msgTitle"></div>
+              <div id="msgLines"></div>
+              <div
+                class="screen-line"
+                style="margin-top: 14px; color: #00ff4166; font-size: 11px"
+              >
+                PRESS [BACK] TO CONTINUE
+              </div>
+            </div>
+
+            <!-- EXIT SCREEN -->
+            <div id="exitScreen" class="hidden">
+              <div class="screen-title">THANK YOU!</div>
+              <div class="screen-line success">TRANSACTION COMPLETE</div>
+              <div class="screen-line" style="margin-top: 10px">
+                PLEASE COLLECT YOUR CARD
+              </div>
+              <div
+                class="screen-line"
+                style="margin-top: 6px; color: #00ff4166"
+              >
+                AND RECEIPT BELOW ↓
+              </div>
+              <div
+                class="screen-line"
+                style="
+                  margin-top: 16px;
+                  color: #00ff4188;
+                  font-size: 12px;
+                  animation: blink 1s infinite;
+                "
+              >
+                HAVE A NICE DAY ■
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD SLOT -->
+        <div class="card-slot">
+          <div class="slot-label">CARD</div>
+          <div class="slot-bar"><div class="slot-glow"></div></div>
+          <div class="slot-label">INSERT ▶</div>
+        </div>
+
+        <!-- KEYPAD INPUT -->
+        <div class="keypad-section hidden" id="keypadArea">
+          <div class="input-area">
+            <span class="input-label">₹</span>
+            <input
+              class="input-field"
+              type="number"
+              id="amtInput"
+              placeholder="0.00"
+              min="1"
+              autocomplete="off"
+            />
+          </div>
+          <div class="btn-row">
+            <button class="atm-btn" onclick="confirmAmount()">▶ CONFIRM</button>
+            <button class="atm-btn danger" onclick="goHome()">✕ CANCEL</button>
+          </div>
+        </div>
+
+        <!-- BACK BUTTON -->
+        <div class="keypad-section hidden" id="backBtnArea">
+          <button class="atm-btn back-btn" onclick="goHome()">
+            ◀ BACK TO MENU
+          </button>
+        </div>
+
+        <!-- RECEIPT STRIP -->
+        <div class="receipt-strip" id="receiptStrip">
+          <div class="receipt-title">◆◆ RECEIPT ◆◆</div>
+          <div class="receipt-line" id="receiptContent"></div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="atm-footer">
+          <span class="footer-text">24/7 BANKING SERVICE</span>
+          <span class="footer-text" id="clockDisp"></span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ── STATE ──
+      let amount = 10000;
+      let txHistory = [];
+      let currentMode = "home";
+
+      // ── HELPERS ──
+      function fmt(n) {
+        return (
+          "₹" +
+          Number(n).toLocaleString("en-IN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        );
+      }
+
+      function nowTime() {
+        return new Date().toLocaleTimeString("en-IN", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        });
+      }
+
+      function todayDate() {
+        return new Date().toLocaleDateString("en-IN");
+      }
+
+      // ── CLOCK ──
+      function updateClock() {
+        document.getElementById("clockDisp").textContent = nowTime();
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // ── SCREEN MANAGEMENT ──
+      const screens = [
+        "mainScreen",
+        "balanceScreen",
+        "depositScreen",
+        "withdrawScreen",
+        "msgScreen",
+        "exitScreen",
+      ];
+
+      function hideAll() {
+        screens.forEach((id) =>
+          document.getElementById(id).classList.add("hidden"),
+        );
+        document.getElementById("keypadArea").classList.add("hidden");
+        document.getElementById("backBtnArea").classList.add("hidden");
+      }
+
+      function showScreen(id) {
+        hideAll();
+        const el = document.getElementById(id);
+        el.classList.remove("hidden");
+        // re-trigger animation
+        el.style.animation = "none";
+        el.offsetHeight;
+        el.style.animation = "";
+      }
+
+      function goHome() {
+        showScreen("mainScreen");
+        document.getElementById("amtInput").value = "";
+        currentMode = "home";
+      }
+
+      function showMsg(title, lines, type) {
+        document.getElementById("msgTitle").textContent = title;
+        const ml = document.getElementById("msgLines");
+        ml.innerHTML = lines
+          .map(
+            (l) =>
+              `<div class="screen-line ${type === "error" ? "error" : ""} ${type === "success" ? "success" : ""}">${l}</div>`,
+          )
+          .join("");
+        showScreen("msgScreen");
+        document.getElementById("backBtnArea").classList.remove("hidden");
+      }
+
+      // ── MAIN LOGIC ──
+      function doAction(n) {
+        if (n === 1) {
+          // CHECK BALANCE
+          document.getElementById("balAmt").textContent = fmt(amount);
+          document.getElementById("balDate").textContent = todayDate();
+          const tl = document.getElementById("txList");
+          if (txHistory.length === 0) {
+            tl.innerHTML =
+              '<div class="screen-line" style="font-size:11px;color:#00ff4144;">NO RECENT TRANSACTIONS</div>';
+          } else {
+            tl.innerHTML = txHistory
+              .slice(-5)
+              .reverse()
+              .map(
+                (t) =>
+                  `<div class="tx-item"><span>${t.type}</span><span>${t.amt}</span></div>`,
+              )
+              .join("");
+          }
+          showScreen("balanceScreen");
+          document.getElementById("backBtnArea").classList.remove("hidden");
+          currentMode = "balance";
+        } else if (n === 2) {
+          // DEPOSIT
+          document.getElementById("depCurBal").textContent = fmt(amount);
+          showScreen("depositScreen");
+          document.getElementById("keypadArea").classList.remove("hidden");
+          document.getElementById("amtInput").value = "";
+          document.getElementById("amtInput").focus();
+          currentMode = "deposit";
+        } else if (n === 3) {
+          // WITHDRAW
+          document.getElementById("wdCurBal").textContent = fmt(amount);
+          showScreen("withdrawScreen");
+          document.getElementById("keypadArea").classList.remove("hidden");
+          document.getElementById("amtInput").value = "";
+          document.getElementById("amtInput").focus();
+          currentMode = "withdraw";
+        } else if (n === 4) {
+          // EXIT
+          showScreen("exitScreen");
+          generateReceipt();
+          currentMode = "exit";
+          setTimeout(() => {
+            document.getElementById("receiptStrip").classList.remove("show");
+            goHome();
+          }, 6000);
+        }
+      }
+
+      function confirmAmount() {
+        const raw = document.getElementById("amtInput").value;
+        const val = parseFloat(raw);
+
+        if (raw === "" || isNaN(val)) {
+          showMsg(
+            "INPUT ERROR",
+            [
+              "INVALID AMOUNT ENTERED.",
+              "",
+              "PLEASE ENTER A VALID",
+              "POSITIVE NUMBER.",
+            ],
+            "error",
+          );
+          return;
+        }
+
+        if (currentMode === "deposit") {
+          if (val < 1) {
+            showMsg(
+              "INPUT ERROR",
+              ["MINIMUM DEPOSIT AMOUNT", "IS ₹1.00"],
+              "error",
+            );
+            return;
+          }
+          amount += val;
+          txHistory.push({ type: "DEPOSIT   ", amt: "+" + fmt(val) });
+          showMsg(
+            "DEPOSIT SUCCESS",
+            ["AMOUNT DEPOSITED:", fmt(val), "", "NEW BALANCE:", fmt(amount)],
+            "success",
+          );
+        } else if (currentMode === "withdraw") {
+          if (val < 1) {
+            showMsg(
+              "INPUT ERROR",
+              ["MINIMUM WITHDRAWAL", "AMOUNT IS ₹1.00"],
+              "error",
+            );
+            return;
+          }
+          if (val > amount) {
+            showMsg(
+              "INSUFFICIENT FUNDS",
+              [
+                "REQUESTED: " + fmt(val),
+                "AVAILABLE: " + fmt(amount),
+                "",
+                "CANNOT PROCESS REQUEST.",
+                "PLEASE TRY AGAIN.",
+              ],
+              "error",
+            );
+            return;
+          }
+          amount -= val;
+          txHistory.push({ type: "WITHDRAWAL", amt: "-" + fmt(val) });
+          showMsg(
+            "WITHDRAWAL SUCCESS",
+            [
+              "AMOUNT WITHDRAWN:",
+              fmt(val),
+              "",
+              "NEW BALANCE:",
+              fmt(amount),
+              "",
+              "PLEASE COLLECT CASH ▼",
+            ],
+            "success",
+          );
+        }
+      }
+
+      function generateReceipt() {
+        const last = txHistory.slice(-3).reverse();
+        const sep = "───────────────────────";
+        const lines = [
+          `RETROBANK ATM`,
+          `${todayDate()} ${nowTime()}`,
+          sep,
+          `ACCT: ****-****-4821`,
+          sep,
+          ...(last.length
+            ? last.map((t) => `${t.type}  ${t.amt}`)
+            : ["NO RECENT TRANSACTIONS"]),
+          sep,
+          `BALANCE:  ${fmt(amount)}`,
+          sep,
+          `THANK YOU FOR BANKING`,
+          `WITH RETROBANK ◆`,
+        ];
+        document.getElementById("receiptContent").innerHTML = lines
+          .map((l) => l + "<br>")
+          .join("");
+        document.getElementById("receiptStrip").classList.add("show");
+      }
+
+      // ── KEYBOARD SHORTCUTS ──
+      document.addEventListener("keydown", (e) => {
+        if (currentMode === "home") {
+          if (e.key === "1") doAction(1);
+          else if (e.key === "2") doAction(2);
+          else if (e.key === "3") doAction(3);
+          else if (e.key === "4") doAction(4);
+        }
+        if (currentMode === "deposit" || currentMode === "withdraw") {
+          if (e.key === "Enter") confirmAmount();
+          if (e.key === "Escape") goHome();
+        }
+        if (currentMode === "balance" || currentMode === "message") {
+          if (e.key === "Escape" || e.key === "Backspace") goHome();
+        }
+      });
+
+      // ── BOOT SEQUENCE ──
+      setTimeout(() => {
+        const overlay = document.getElementById("bootOverlay");
+        overlay.style.transition = "opacity 0.6s ease";
+        overlay.style.opacity = "0";
+        setTimeout(() => {
+          overlay.style.display = "none";
+          document.getElementById("mainScreen").classList.remove("hidden");
+        }, 600);
+      }, 2800);
+    </script>
+  </body>
+</html>
