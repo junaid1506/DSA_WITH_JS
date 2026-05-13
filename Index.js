@@ -264,7 +264,7 @@
 //   console.log(arr.join(" "));
 // }
 
-let ammount = 10000;
+let amount = 10000;
 let userInput = -3;
 
 // 1. Check Balance
@@ -289,13 +289,34 @@ while (userInput !== 4) {
     continue;
   }
   if (userInput === 1) {
-    alert("Your current amount is ₹" + ammount);
+    alert("Your current amount is ₹" + amount);
   } else if (userInput === 2) {
-    let deposite = Number(prompt("Enter the amout you want to add"));
+    let deposite = Number(prompt("Enter the amount you want to deposit"));
+    if (isNaN(deposite)) {
+      alert("Please enter valid number ");
+      continue;
+    }
     if (deposite < 1) {
       alert("Please enter amount more than ₹1 ");
+      continue;
     }
-    ammount = ammount + deposite;
-    alert("Now your current ammount is" + ammount);
+    amount = amount + deposite;
+    alert("Now your current amount is ₹" + amount);
+  } else if (userInput === 3) {
+    let withdraw = Number(prompt("Enter the amount you want to withdraw"));
+    if (withdraw < 1) {
+      alert("Minimun withdrawl ammount is ₹1");
+    } else if (isNaN(deposite)) {
+      alert("Please enter valid number ");
+      continue;
+    } else if (withdraw > amount) {
+      alert("Insuficient amount");
+    } else {
+      amount = amount - withdraw;
+      alert("Now your current amount is ₹" + amount);
+    }
+  } else {
+    alert("Thank you for using our service");
+    break;
   }
 }
