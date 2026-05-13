@@ -193,28 +193,73 @@
 //   i++;
 // } while (i <= 10);
 
-let numToGuess = Math.floor(Math.random() * 10 + 1);
+// let numToGuess = Math.floor(Math.random() * 10 + 1);
 
-let userInput = Number(prompt("Guess the number from 1 - 10"));
+// let userInput = Number(prompt("Guess the number from 1 - 10"));
 
-while (isNaN(userInput) || userInput < 1 || userInput > 10) {
-  userInput = Number(
-    prompt("Invalid input! Please enter a number from 1 - 10"),
-  );
-}
+// while (isNaN(userInput) || userInput < 1 || userInput > 10) {
+//   userInput = Number(
+//     prompt("Invalid input! Please enter a number from 1 - 10"),
+//   );
+// }
 
-while (userInput !== numToGuess) {
-  if (userInput > numToGuess) {
-    userInput = Number(prompt("Too High, try again"));
-  } else {
-    userInput = Number(prompt("Too Low, try again"));
-  }
+// while (userInput !== numToGuess) {
+//   if (userInput > numToGuess) {
+//     userInput = Number(prompt("Too High, try again"));
+//   } else {
+//     userInput = Number(prompt("Too Low, try again"));
+//   }
 
-  while (isNaN(userInput) || userInput < 1 || userInput > 10) {
-    userInput = Number(
-      prompt("Invalid input! Please enter a number from 1 - 10"),
-    );
-  }
-}
+//   while (isNaN(userInput) || userInput < 1 || userInput > 10) {
+//     userInput = Number(
+//       prompt("Invalid input! Please enter a number from 1 - 10"),
+//     );
+//   }
+// }
 
-alert("Good!! Correct");
+// alert("Good!! Correct");
+
+// let generate = Number(Math.round(Math.random() * 100 + 1)); // 23
+// let guess = -1;
+// let attempt = 0;
+
+// while (guess !== generate) {
+//   if (attempt === 5) {
+//     console.log("your attempt is over");
+//     break;
+//   }
+//   attempt++;
+//   guess = Number(prompt("Enter the number , 1 - 100"));
+//   if (isNaN(guess) || guess > 100 || guess < 1) {
+//     console.log("Try again, Number should be 1 to 100");
+//     continue;
+//   }
+//   if (guess > generate) {
+//     console.log("Too high , Try again");
+//   } else if (guess < generate) {
+//     console.log("Too low, Try again");
+//   } else {
+//     console.log("Congratulation 🥳" + guess);
+//   }
+// }
+
+// let num = Number(prompt("Enter the number")); //15
+
+// let arr = [];
+
+// if (isNaN(num) || num < 1) {
+//   console.log("Number should be valid and also positive , 0 is not allowed");
+// } else {
+//   for (let i = 1; i <= num; i++) {
+//     if (i % 3 === 0 && i % 5 === 0) {
+//       arr.push("FizzBuzz");
+//     } else if (i % 3 === 0) {
+//       arr.push("Fizz");
+//     } else if (i % 5 === 0) {
+//       arr.push("Buzz");
+//     } else {
+//       arr.push(i);
+//     }
+//   }
+//   console.log(arr.join(" "));
+// }
