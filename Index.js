@@ -326,6 +326,6 @@
 
 // process.stdout.write("Hello ");
 // process.stdout.write("World");
-
+let prompt = require("prompt-sync")();
 let a = prompt("Enter the first number");
 console.log(a);
