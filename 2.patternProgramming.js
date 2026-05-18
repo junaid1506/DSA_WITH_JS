@@ -16,8 +16,18 @@ let n = prompt("Enter the first number");
 //   console.log();
 // }
 
+// for (let j = 1; j <= n; j++) {
+//   for (let i = n; i >= j; i--) {
+//     process.stdout.write("*");
+//   }
+//   console.log();
+// }
+
 for (let j = 1; j <= n; j++) {
-  for (let i = n; i >= j; i--) {
+  for (let i = n; i > j; i--) {
+    process.stdout.write(" ");
+  }
+  for (let i = 1; i <= j; i++) {
     process.stdout.write("*");
   }
   console.log();
