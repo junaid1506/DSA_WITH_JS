@@ -1,0 +1,13 @@
+const arr = [];
+arr.push(1);
+arr.push(2);
+arr.push(3);
+arr.push(4);
+arr.push(5);
+console.log(arr);
+arr.pop();
+console.log(arr);
+arr.unshift(0);
+console.log(arr);
+arr.shift();
+console.log(arr);
