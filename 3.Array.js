@@ -11,3 +11,10 @@ arr.unshift(0);
 console.log(arr);
 arr.shift();
 console.log(arr);
+
+arr[0] = 10;
+console.log(arr);
+
+arr.splice(1, 0, 20);
+console.log(arr);
+
